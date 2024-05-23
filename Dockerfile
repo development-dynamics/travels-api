@@ -12,8 +12,11 @@ RUN yarn install
 # Copy app source code
 COPY . .
 
-# Build the app
-RUN npx prisma generate
+# Build Prisma
+RUN yarn prisma generate
+
+# Run push
+RUN yarn prisma db push
 
 # Build the app
 RUN yarn build
