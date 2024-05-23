@@ -21,8 +21,13 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 
 3. Instalar make
 
+En windows:
 ```bash
   choco install make
+```
+En linux:
+```bash
+  sudo apt install make
 ```
 
 4. Ejecutar el comando make para subir el contenedor
