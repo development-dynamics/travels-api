@@ -10,3 +10,28 @@ services:
     container_name: travels-db
     volumes:
       - ./postgres:/var/lib/postgresql/data
+    networks:
+      - travels-network
+  
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '${PORT}:${PORT}'
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: ${DATABASE_URL}
+      PORT: ${PORT}
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - travels-network
+
+networks:
+  travels-network:
+    driver: bridge
