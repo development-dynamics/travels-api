@@ -8,7 +8,11 @@ export class UserPrismaRepositoryAdapter implements UserRepository {
   constructor(private prisma: PrismaService) {}
 
   async findById(id: number): Promise<User> {
-    return User.create(await this.prisma.user.findUnique({ where: { id } }));
+    const userFound = await this.prisma.user.findUnique({ where: { id } });
+    if (!userFound) {
+      return null;
+    }
+    return User.create(userFound);
   }
 
   async findAll(): Promise<User[]> {

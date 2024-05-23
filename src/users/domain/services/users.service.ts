@@ -1,9 +1,13 @@
+import { Inject } from '@nestjs/common';
 import { User } from '../entities/user.entity';
 import { UserService } from '../ports/inbound/i-user.service';
 import { UserRepository } from '../ports/outbound/i-user.repository';
 
 export class UserDomainService implements UserService {
-  constructor(private readonly repository: UserRepository) {}
+  constructor(
+    @Inject('UserRepository')
+    private readonly repository: UserRepository,
+  ) {}
 
   async findById(id: number): Promise<User> {
     return await this.repository.findById(id);

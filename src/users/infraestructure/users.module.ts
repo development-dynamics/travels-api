@@ -10,12 +10,10 @@ import { UserApplicationService } from '../application/services/user.application
   providers: [
     {
       provide: 'UserService',
-      useClass: UserDomainService,
+      useFactory: (repository) => new UserDomainService(repository),
+      inject: [UserPrismaRepositoryAdapter],
     },
-    {
-      provide: 'UserRepository',
-      useClass: UserPrismaRepositoryAdapter,
-    },
+    UserPrismaRepositoryAdapter,
     UserApplicationService,
   ],
   exports: [UserApplicationService],

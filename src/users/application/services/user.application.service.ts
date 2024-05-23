@@ -3,9 +3,13 @@ import { UserApplication } from '../user.application';
 import { User } from 'src/users/domain/entities/user.entity';
 import { CreateUserRequest } from 'src/users/infraestructure/http-server/dtos/create-user.request';
 import { UpdateUserRequest } from 'src/users/infraestructure/http-server/dtos/update-user.request';
+import { Inject } from '@nestjs/common';
 
 export class UserApplicationService implements UserApplication {
-  constructor(private readonly service: UserService) {}
+  constructor(
+    @Inject('UserService')
+    private readonly service: UserService,
+  ) {}
 
   async findById(id: number): Promise<User> {
     return await this.service.findById(id);

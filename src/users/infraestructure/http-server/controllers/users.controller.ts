@@ -17,14 +17,34 @@ export class UsersController {
     private readonly userApplicationService: UserApplicationService,
   ) {}
 
+  @Get()
+  async findAll() {
+    try {
+      return await this.userApplicationService.findAll();
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
   @Get(':id')
   async findById(@Param('id') id: number) {
-    return await this.userApplicationService.findById(+id);
+    try {
+      return await this.userApplicationService.findById(+id);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
   }
 
   @Post()
   async create(@Body() createUser: CreateUserRequest) {
-    return await this.userApplicationService.create(createUser);
+    try {
+      return await this.userApplicationService.create(createUser);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
   }
 
   @Patch(':id')
