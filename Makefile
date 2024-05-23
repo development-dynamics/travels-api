@@ -15,3 +15,8 @@ down-dev:
 	@echo "Stopping development containers"
 	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) down
 	@echo "Development environment stopped"
+
+connect-app:
+	@echo "Connecting to app container"
+	docker exec -it travels-api-app-1 sh
+	@echo "Connected to app container"
