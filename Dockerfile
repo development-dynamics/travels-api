@@ -6,7 +6,8 @@ WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm install --global yarn
+RUN yarn install
 
 # Copy app source code
 COPY . .
@@ -15,7 +16,7 @@ COPY . .
 RUN npx prisma generate
 
 # Build the app
-RUN npm run build
+RUN yarn build
 
 # Start the app
-CMD ["npm", "run", "start:dev"]
+CMD ["yarn", "start:dev"]
