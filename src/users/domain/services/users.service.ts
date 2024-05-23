@@ -12,8 +12,8 @@ export class UserDomainService implements UserService {
   async findAll(): Promise<User[]> {
     return await this.repository.findAll();
   }
-  async update(user: User): Promise<User> {
-    return await this.repository.update(user);
+  async update(id: number, user: User): Promise<User> {
+    return await this.repository.update(id, user);
   }
   async create(user: User): Promise<User> {
     return await this.repository.create(user);
