@@ -1,19 +1,19 @@
 export class User {
-  id: number;
+  id: number
 
-  username: string;
+  username: string
 
-  email: string;
+  email: string
 
-  password: string;
+  password: string
 
-  dni: string;
+  dni: string
 
-  firstName: string;
+  firstName: string
 
-  lastName: string;
+  lastName: string
 
-  phone: string;
+  phone: string
 
-  isActive: boolean;
+  isActive: boolean
 }
