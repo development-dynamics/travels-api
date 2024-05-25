@@ -52,7 +52,7 @@ jobs:
         run: |
           yarn start &
           PID=$!
-          sleep 10
+          sleep 30
           if curl --output /dev/null --silent --head --fail http://localhost:3000; then
             echo "Application started successfully"
             kill $PID
