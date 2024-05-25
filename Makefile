@@ -25,3 +25,8 @@ push-db:
 	@echo "Pushing database container"
 	docker exec -it travels-api-app-1 yarn prisma db push
 	@echo "Database container pushed"
+
+i-dep:
+	@echo "Installing dependencies"
+	docker exec -it travels-api-app-1 yarn install
+	@echo "Dependencies installed"
