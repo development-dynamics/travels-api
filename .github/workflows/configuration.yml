@@ -21,6 +21,19 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Create .env file
+        run: |
+          echo "PROJECT_NAME=RoutesApi" > .env
+          echo "PROJECT_LOCAL_PORT=3006" >> .env
+          echo "PROJECT_CONTAINER_PORT=3006" >> .env
+          echo "DB_PASSWORD=root" >> .env
+          echo "DB_NAME=TravelsDB" >> .env
+          echo "DB_HOST=localhost" >> .env
+          echo "DB_PORT=5447" >> .env
+          echo "DB_USERNAME=postgres" >> .env
+          echo "PORT=3006" >> .env
+          echo "DATABASE_URL=\"postgresql://postgres:root@travels-db:5432/TravelsDB?schema=public\"" >> .env
+
       - name: Install dependencies
         run: yarn install
 
@@ -30,12 +43,10 @@ jobs:
       - name: Build project
         run: yarn build
 
-      - name: Initialize data base
+      - name: Start database container
         run: make up-db
 
       - name: Verify application startup
         env:
           NODE_ENV: production
-          # DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          DATABASE_URL: postgresql://postgres:root@localhost:5447/TravelsDB?schema=public
         run: yarn start
