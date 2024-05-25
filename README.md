@@ -1,4 +1,4 @@
-## Travels
+## Travels-api
 
 ## Requisitos previos
 
@@ -30,13 +30,19 @@ En linux:
   sudo apt install make
 ```
 
-4. Ejecutar el comando make para subir el contenedor
+4. Configura las variables de entorno en el archivo .env
+
+```bash
+  cp .env.template .env
+```
+
+5. Ejecutar el comando make para subir el contenedor
 
 ```bash
   make up-db
 ```
 
-5. Instalar las dependencias
+6. Instalar las dependencias
 
 ```bash
   yarn

@@ -23,4 +23,6 @@ model User {
   lastName  String  @map("last_name")
   phone     String
   isActive  Boolean @default(true)
+
+  @@map("users")
 }

@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Create .env file
+        run: |
+          echo "PROJECT_NAME=${{ secrets.PROJECT_NAME }}" > .env
+          echo "PROJECT_LOCAL_PORT=${{ secrets.PROJECT_LOCAL_PORT }}" >> .env
+          echo "PROJECT_CONTAINER_PORT=${{ secrets.PROJECT_CONTAINER_PORT }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint code
+        run: yarn lint
+
+      - name: Build project
+        run: yarn build
+
+      - name: Start database container
+        run: make up-db
+
+      - name: Verify application startup
+        env:
+          NODE_ENV: production
+        run: |
+          yarn start &
+          PID=$!
+          sleep 10
+          if curl --output /dev/null --silent --head --fail http://localhost:3006; then
+            echo "Application started successfully"
+            kill $PID
+          else
+            echo "Application failed to start"
+            exit 1
+          fi
+
+      - name: Stop database
+        run: make down-db
