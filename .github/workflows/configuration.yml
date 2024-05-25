@@ -54,10 +54,5 @@ jobs:
           sleep 5
           echo "Application started"
 
-      - name: Stop application
-        run: |
-          pkill -f "node ./dist/main.js"
-          echo "Application stopped"
-
-      - name: Stop development environment
+      - name: Stop database
         run: make down-db
