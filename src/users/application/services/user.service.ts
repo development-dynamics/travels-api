@@ -1,9 +1,9 @@
-import { UserServiceInterface } from '../ports/inbound/user.service.interface';
-import { User } from '../../domain/models/user.entity';
-import { Inject, Injectable } from '@nestjs/common';
-import { UserRepositoryInterface } from '../ports/outbound/user.repository.interface';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
+import { UserServiceInterface } from '../ports/inbound/user.service.interface'
+import { User } from '../../domain/models/user.entity'
+import { Inject, Injectable } from '@nestjs/common'
+import { UserRepositoryInterface } from '../ports/outbound/user.repository.interface'
+import { CreateUserDto } from '../dto/create-user.dto'
+import { UpdateUserDto } from '../dto/update-user.dto'
 
 @Injectable()
 export class UserService implements UserServiceInterface {
@@ -13,22 +13,26 @@ export class UserService implements UserServiceInterface {
   ) {}
 
   async getUsers(): Promise<User[]> {
-    return await this.userRepository.findAll();
+    return await this.userRepository.findAll()
   }
 
   async getUserById(id: number): Promise<User> {
-    return await this.userRepository.findById(id);
+    return await this.userRepository.findById(id)
+  }
+
+  async getUserByEmail(email: string): Promise<User> {
+    return await this.userRepository.findByEmail(email)
   }
 
   async createUser(user: CreateUserDto): Promise<User> {
-    return await this.userRepository.save(user);
+    return await this.userRepository.save(user)
   }
 
   async updateUser(id: number, user: UpdateUserDto): Promise<User> {
-    return await this.userRepository.update(id, user);
+    return await this.userRepository.update(id, user)
   }
 
   async deleteUser(id: number): Promise<void> {
-    return await this.userRepository.delete(id);
+    return await this.userRepository.delete(id)
   }
 }
