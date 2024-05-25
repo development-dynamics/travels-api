@@ -27,7 +27,7 @@ services:
     depends_on:
       - db
     volumes:
-      - app:/usr/src/app
+      - ./:/usr/src/app
       - /usr/src/app/node_modules
     networks:
       - travels-network
@@ -38,4 +38,3 @@ networks:
 
 volumes:
   postgres:
-  app:
