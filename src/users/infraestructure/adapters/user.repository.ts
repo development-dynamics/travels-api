@@ -8,22 +8,22 @@ export class UserRepository implements UserRepositoryInterface {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll(): Promise<User[]> {
-    return this.prisma.user.findMany();
+    return await this.prisma.user.findMany();
   }
 
   async findById(id: number): Promise<User> {
-    return this.prisma.user.findUnique({ where: { id } });
+    return await this.prisma.user.findUnique({ where: { id } });
   }
 
   async save(user: User): Promise<User> {
-    return this.prisma.user.create({ data: user });
+    return await this.prisma.user.create({ data: user });
   }
 
   async update(id: number, user: User): Promise<User> {
-    return this.prisma.user.update({ where: { id }, data: user });
+    return await this.prisma.user.update({ where: { id }, data: user });
   }
 
   async delete(id: number): Promise<void> {
-    await this.prisma.user.delete({ where: { id } });
+    await await this.prisma.user.delete({ where: { id } });
   }
 }

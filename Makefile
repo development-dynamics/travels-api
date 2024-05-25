@@ -20,3 +20,8 @@ connect-app:
 	@echo "Connecting to app container"
 	docker exec -it travels-api-app-1 sh
 	@echo "Connected to app container"
+
+push-db:
+	@echo "Pushing database container"
+	docker exec -it travels-api-app-1 yarn prisma db push
+	@echo "Database container pushed"
