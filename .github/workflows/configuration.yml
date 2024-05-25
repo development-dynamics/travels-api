@@ -21,6 +21,8 @@ jobs:
         with:
           node-version: '20'
 
+      # This action shouldn't go here
+      # All this environment varibales should be inyected in the github repository
       - name: Create .env file
         run: |
           echo "PROJECT_NAME=RoutesApi" > .env
@@ -49,6 +51,7 @@ jobs:
       - name: Verify application startup
         env:
           NODE_ENV: production
+          # DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
           yarn start &
           PID=$!
