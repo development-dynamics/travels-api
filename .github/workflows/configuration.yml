@@ -50,9 +50,18 @@ jobs:
         env:
           NODE_ENV: production
         run: |
-          yarn start &
-          sleep 5
+          yarn start
           echo "Application started"
+
+      - name: Stop application
+        run: |
+          PID=$(pgrep -f "node ./dist/main.js")
+          if [ -n "$PID" ]; then
+            kill "$PID"
+            echo "Application stopped"
+          else
+            echo "No running application found"
+          fi
 
       - name: Stop database
         run: make down-db
