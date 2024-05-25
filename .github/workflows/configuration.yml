@@ -23,18 +23,18 @@ jobs:
 
       # This action shouldn't go here
       # All this environment varibales should be inyected in the github repository
-      - name: Create .env file
-        run: |
-          echo "PROJECT_NAME=${{ secrets.PROJECT_NAME }}" > .env
-          echo "PROJECT_LOCAL_PORT=${{ secrets.PROJECT_LOCAL_PORT }}" >> .env
-          echo "PROJECT_CONTAINER_PORT=${{ secrets.PROJECT_CONTAINER_PORT }}" >> .env
-          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
-          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
-          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
-          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+      # - name: Create .env file
+      #   run: |
+      #     echo "PROJECT_NAME=${{ secrets.PROJECT_NAME }}" > .env
+      #     echo "PROJECT_LOCAL_PORT=${{ secrets.PROJECT_LOCAL_PORT }}" >> .env
+      #     echo "PROJECT_CONTAINER_PORT=${{ secrets.PROJECT_CONTAINER_PORT }}" >> .env
+      #     echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+      #     echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+      #     echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+      #     echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+      #     echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+      #     echo "PORT=${{ secrets.PORT }}" >> .env
+      #     echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
 
       - name: Install dependencies
         run: yarn install
@@ -51,7 +51,12 @@ jobs:
       - name: Verify application startup
         env:
           NODE_ENV: production
-          # DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
         run: |
           yarn start &
           PID=$!
