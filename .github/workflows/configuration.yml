@@ -32,7 +32,7 @@ jobs:
           echo "DB_PORT=5447" >> .env
           echo "DB_USERNAME=postgres" >> .env
           echo "PORT=3006" >> .env
-          echo "DATABASE_URL=\"postgresql://postgres:root@travels-db:5432/TravelsDB?schema=public\"" >> .env
+          echo "DATABASE_URL=\"postgresql://postgres:root@localhost:5447/TravelsDB?schema=public\"" >> .env
 
       - name: Install dependencies
         run: yarn install
