@@ -4,6 +4,7 @@ import { UserController } from './adapters/user.controller';
 import { UserService } from '../application/services/user.service';
 import { UserRepository } from './adapters/user.repository';
 
+@Module({
   controllers: [UserController],
   providers: [
     {
@@ -15,6 +16,5 @@ import { UserRepository } from './adapters/user.repository';
       useClass: UserRepository,
     },
   ],
-  imports: [PrismaModule],
 })
 export class UsersModule {}
