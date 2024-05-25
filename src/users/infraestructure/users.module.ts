@@ -1,22 +1,21 @@
 import { Module } from '@nestjs/common';
-import { UserDomainService } from '../domain/services/users.service';
-import { UsersController } from './http-server/controllers/users.controller';
 import { PrismaModule } from 'src/shared/infraestructure/prisma/prisma.module';
-import { UserPrismaRepositoryAdapter } from './adapters/user.prisma.repository.adapter';
-import { UserApplicationService } from '../application/services/user.application.service';
+import { UserController } from './adapters/user.controller';
+import { UserService } from '../application/services/user.service';
+import { UserRepository } from './adapters/user.repository';
 
 @Module({
-  controllers: [UsersController],
+  controllers: [UserController],
   providers: [
     {
-      provide: 'UserService',
-      useFactory: (repository) => new UserDomainService(repository),
-      inject: [UserPrismaRepositoryAdapter],
+      provide: 'UserServiceInterface',
+      useClass: UserService,
     },
-    UserPrismaRepositoryAdapter,
-    UserApplicationService,
+    {
+      provide: 'UserRepositoryInterface',
+      useClass: UserRepository,
+    },
   ],
-  exports: [UserApplicationService],
   imports: [PrismaModule],
 })
 export class UsersModule {}
