@@ -30,7 +30,12 @@ jobs:
       - name: Build project
         run: yarn build
 
+      - name: Initialize data base
+        run: make up-db
+
       - name: Verify application startup
         env:
           NODE_ENV: production
+          # DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: postgresql://postgres:root@localhost:5447/TravelsDB?schema=public
         run: yarn start
