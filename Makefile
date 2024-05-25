@@ -7,6 +7,12 @@ up-db:
 	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) up -d db
 	@echo "Database container started"
 
+down-db:
+	@echo "Stopping development environment"
+	@echo "Stopping database"
+	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) stop db
+	@echo "Stopping database container"
+
 up-dev:
 	@echo "Starting development environment"
 	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) up -d db
