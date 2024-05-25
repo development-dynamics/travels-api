@@ -50,17 +50,14 @@ jobs:
         env:
           NODE_ENV: production
         run: |
-          yarn start
-          echo "Application started"
-
-      - name: Stop application
-        run: |
-          PID=$(pgrep -f "node ./dist/main.js")
-          if [ -n "$PID" ]; then
-            kill "$PID"
-            echo "Application stopped"
+          yarn start &
+          PID=$!
+          if curl --output /dev/null --silent --head --fail http://localhost:3000; then
+            echo "Application started successfully"
+            kill $PID
           else
-            echo "No running application found"
+            echo "Application failed to start"
+            exit 1
           fi
 
       - name: Stop database
