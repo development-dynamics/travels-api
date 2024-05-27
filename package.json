@@ -29,11 +29,14 @@
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
     "@prisma/client": "^5.13.0",
+    "@zenstackhq/runtime": "2.1.2",
+    "@zenstackhq/server": "^2.1.2",
     "jsonwebtoken": "^9.0.2",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "zenstack": "2.1.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

@@ -1,11 +1,18 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { UserRepositoryInterface } from '../../application/ports/outbound/user.repository.interface'
 import { User } from '../../domain/models/user.entity'
 import { PrismaService } from 'src/shared/infraestructure/prisma/prisma.service'
+import { ENHANCED_PRISMA } from '@zenstackhq/server/nestjs'
+import { enhance } from '@zenstackhq/runtime'
 
 @Injectable()
 export class UserRepository implements UserRepositoryInterface {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @Inject(ENHANCED_PRISMA)
+    private readonly prisma: PrismaService,
+  ) {}
+
+  db = enhance(this.prisma, { 'user' }, { kinds: ['delegate'] })
 
   async findAll(): Promise<User[]> {
     return await this.prisma.user.findMany()
@@ -19,7 +26,7 @@ export class UserRepository implements UserRepositoryInterface {
     return await this.prisma.user.findUnique({ where: { email } })
   }
 
-  async save(user: User): Promise<User> {
+  async save(user: any): Promise<User> {
     return await this.prisma.user.create({ data: user })
   }
 
@@ -28,6 +35,6 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   async delete(id: number): Promise<void> {
-    await await this.prisma.user.delete({ where: { id } })
+    await this.prisma.user.delete({ where: { id } })
   }
 }
