@@ -18,6 +18,6 @@ import { INJECT } from 'src/constants'
     },
   ],
   imports: [PrismaModule],
-  exports: ['UserServiceInterface'],
+  exports: [INJECT.USER_SERVICE],
 })
 export class UsersModule {}
