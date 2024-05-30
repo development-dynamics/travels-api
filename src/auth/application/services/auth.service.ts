@@ -3,11 +3,12 @@ import { JwtService } from '@nestjs/jwt'
 import { CreateUserDto } from 'src/users/application/dto/create-user.dto'
 import { UserService } from 'src/users/application/services/user.service'
 import { AuthServiceInterface } from '../ports/inbound/auth.service.interface'
+import { INJECT } from 'src/constants'
 
 @Injectable()
 export class AuthService implements AuthServiceInterface {
   constructor(
-    @Inject('UserServiceInterface')
+    @Inject(INJECT.USER_SERVICE)
     private userService: UserService,
     private jwtService: JwtService,
   ) {}
