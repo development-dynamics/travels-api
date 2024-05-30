@@ -3,17 +3,16 @@ import { PrismaModule } from 'src/shared/infraestructure/prisma/prisma.module'
 import { UserController } from './adapters/user.controller'
 import { UserService } from '../application/services/user.service'
 import { UserRepository } from './adapters/user.repository'
-import { INJECT } from 'src/constants'
 
 @Module({
   controllers: [UserController],
   providers: [
     {
-      provide: INJECT.USER_SERVICE,
+      provide: 'UserServiceInterface',
       useClass: UserService,
     },
     {
-      provide: INJECT.USER_REPOSITORY,
+      provide: 'UserRepositoryInterface',
       useClass: UserRepository,
     },
   ],
