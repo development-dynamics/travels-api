@@ -12,11 +12,12 @@ import { UserServiceInterface } from '../../application/ports/inbound/user.servi
 import { User } from '../../domain/models/user.entity'
 import { CreateUserDto } from 'src/users/application/dto/create-user.dto'
 import { UpdateUserDto } from 'src/users/application/dto/update-user.dto'
+import { INJECT } from 'src/constants'
 
 @Controller('users')
 export class UserController {
   constructor(
-    @Inject('UserServiceInterface')
+    @Inject(INJECT.USER_SERVICE)
     private readonly userService: UserServiceInterface,
   ) {}
 
