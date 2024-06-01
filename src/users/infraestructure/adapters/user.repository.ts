@@ -3,7 +3,6 @@ import { UserRepositoryInterface } from '../../application/ports/outbound/user.r
 import { User } from '../../domain/models/user.entity'
 import { PrismaService } from 'src/shared/infraestructure/prisma/prisma.service'
 import { ENHANCED_PRISMA } from '@zenstackhq/server/nestjs'
-import { enhance } from '@zenstackhq/runtime'
 
 @Injectable()
 export class UserRepository implements UserRepositoryInterface {
@@ -11,8 +10,6 @@ export class UserRepository implements UserRepositoryInterface {
     @Inject(ENHANCED_PRISMA)
     private readonly prisma: PrismaService,
   ) {}
-
-  db = enhance(this.prisma, { 'user' }, { kinds: ['delegate'] })
 
   async findAll(): Promise<User[]> {
     return await this.prisma.user.findMany()
