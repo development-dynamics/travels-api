@@ -10,10 +10,12 @@ import { PrismaService } from './shared/infraestructure/prisma/prisma.service'
 import { enhance } from '@zenstackhq/runtime'
 import { APP_INTERCEPTOR } from '@nestjs/core'
 import { AuthInterceptor } from './auth/infraestructure/interceptors/auth.interceptors'
+import { ClientsModule } from './clients/infraestructure/client.module'
 
 @Module({
   imports: [
     UsersModule,
+    ClientsModule,
     ConfigModule.forRoot(),
     AuthModule,
     ClsModule.forRoot({

@@ -27,6 +27,7 @@ model User {
   @@map("users")
 
   @@delegate(userType)
+  @@allow('all', true)
 }
 
 model Client extends User {

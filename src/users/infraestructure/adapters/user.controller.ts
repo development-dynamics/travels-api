@@ -33,6 +33,7 @@ export class UserController {
     return this.userService.getUserById(+id)
   }
 
+  @Public()
   @Post()
   async create(@Body() user: CreateUserDto): Promise<User> {
     return this.userService.createUser(user)
