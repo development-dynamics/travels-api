@@ -1,14 +1,23 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { ClientRepositoryInterface } from '../../application/ports/outbound/client.repository.interface'
 import { Client } from '../../domain/models/client.entity'
-import { EnhancedPrismaService } from 'src/shared/infraestructure/prisma/prisma.enhance.service'
+import { PrismaService } from 'src/shared/infraestructure/prisma/prisma.service'
+import { ENHANCED_PRISMA } from '@zenstackhq/server/nestjs'
+import { enhance } from '@zenstackhq/runtime'
+import { ClsService } from 'nestjs-cls'
+import { PrismaClient } from '@prisma/client'
 
 @Injectable()
 export class ClientRepository implements ClientRepositoryInterface {
   constructor(
-    @Inject('EnhancedPrismaService')
-    private readonly db: EnhancedPrismaService,
+    @Inject(ENHANCED_PRISMA)
+    private readonly prisma: PrismaService,
+    private readonly clsService: ClsService,
   ) {}
+
+  private get enhancedPrisma() {
+    return enhance(this.prisma, { user: this.clsService.get('auth') })
+  }
 
   async findAll(): Promise<Client[]> {
     return await this.db.enhancedPrisma.client.findMany()
@@ -29,7 +38,7 @@ export class ClientRepository implements ClientRepositoryInterface {
   }
 
   async update(id: number, client: Client): Promise<Client> {
-    return await this.db.enhancedPrisma.client.update({
+    return await this.enhancedPrisma.client.update({
       where: { id },
       data: client,
     })
