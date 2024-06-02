@@ -1,12 +1,10 @@
-import { User } from '../../../domain/models/user.entity'
-import { CreateUserDto } from '../../dto/create-user.dto'
-import { UpdateUserDto } from '../../dto/update-user.dto'
+import { Vehicle } from 'src/vehicles/domain/models/vehicle.entity'
+import { CreateVehicleDto } from '../../dto/create-vehicle.dto'
 
-export interface UserRepositoryInterface {
-  findAll(): Promise<User[]>
-  findById(id: number): Promise<User>
-  findByEmail(email: string): Promise<User>
-  save(user: CreateUserDto): Promise<User>
-  update(id: number, user: UpdateUserDto): Promise<User>
+export interface VehicleRepositoryInterface {
+  findAll(): Promise<Vehicle[]>
+  findById(id: number): Promise<Vehicle>
+  save(vehicle: CreateVehicleDto): Promise<Vehicle>
+  update(id: number, vehicle: CreateVehicleDto): Promise<Vehicle>
   delete(id: number): Promise<void>
 }

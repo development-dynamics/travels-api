@@ -11,11 +11,13 @@ import { enhance } from '@zenstackhq/runtime'
 import { APP_INTERCEPTOR } from '@nestjs/core'
 import { AuthInterceptor } from './auth/infraestructure/interceptors/auth.interceptors'
 import { ClientsModule } from './clients/infraestructure/client.module'
+import { VehiclesModule } from './vehicles/infraestructure/vehicles.module'
 
 @Module({
   imports: [
     UsersModule,
     ClientsModule,
+    VehiclesModule,
     ConfigModule.forRoot(),
     AuthModule,
     ClsModule.forRoot({

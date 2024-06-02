@@ -41,3 +41,8 @@ i-dep:
 	@echo "Installing dependencies"
 	docker exec -it travels-api-app-1 yarn install
 	@echo "Dependencies installed"
+
+redo-image:
+	@echo "Rebuilding image"
+	docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE) build
+	@echo "Image rebuilt"

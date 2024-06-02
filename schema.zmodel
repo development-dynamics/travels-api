@@ -35,3 +35,23 @@ model Client extends User {
   total  Decimal
   @@map("clients")
 }
+
+model Vehicle {
+  id                 Int               @id @default(autoincrement())
+  plate              String            @unique
+  model              String
+  brand              String
+  weightCapacity     Decimal           @map("weight_capacity")
+  color              String
+  km                 Int
+  volumeCapacity     Decimal           @map("volume_capacity")
+  passengersCapacity Int               @map("passengers_capacity")
+  status             VehicleStatusEnum @default(AVAILABLE)
+
+  @@map("vehicles")
+}
+
+enum VehicleStatusEnum {
+  AVAILABLE
+  UNAVAILABLE
+}

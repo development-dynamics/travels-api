@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { PrismaService } from './prisma.service'
 import { ENHANCED_PRISMA } from '@zenstackhq/server/nestjs'
+import { MapperService } from 'src/shared/application/services/mapper.service'
 
 @Module({
   providers: [
@@ -12,7 +13,8 @@ import { ENHANCED_PRISMA } from '@zenstackhq/server/nestjs'
       },
       inject: [PrismaService],
     },
+    MapperService,
   ],
-  exports: [PrismaService, ENHANCED_PRISMA],
+  exports: [PrismaService, ENHANCED_PRISMA, MapperService],
 })
 export class PrismaModule {}

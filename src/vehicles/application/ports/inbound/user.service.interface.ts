@@ -1,11 +1,10 @@
-import { User } from '../../../domain/models/user.entity'
-import { CreateUserDto } from '../../dto/create-user.dto'
-import { UpdateUserDto } from '../../dto/update-user.dto'
+import { Vehicle } from 'src/vehicles/domain/models/vehicle.entity'
+import { CreateVehicleDto } from '../../dto/create-vehicle.dto'
 
-export interface UserServiceInterface {
-  createUser(user: CreateUserDto): Promise<User>
-  getUserById(id: number): Promise<User>
-  getUsers(): Promise<User[]>
-  updateUser(id: number, user: UpdateUserDto): Promise<User>
-  deleteUser(id: number): Promise<void>
+export interface VehicleServiceInterface {
+  createVehicle(vehicle: CreateVehicleDto): Promise<Vehicle>
+  getVehicleById(id: number): Promise<Vehicle>
+  getVehicles(): Promise<Vehicle[]>
+  updateVehicle(id: number, vehicle: CreateVehicleDto): Promise<Vehicle>
+  deleteVehicle(id: number): Promise<void>
 }

@@ -10,6 +10,8 @@ export class CreateVehicleDto {
   brand: string
   @IsNumber()
   weightCapacity: number
+  @IsString()
+  color: string
   @IsNumber()
   km: number
   @IsNumber()
