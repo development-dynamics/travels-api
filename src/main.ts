@@ -34,5 +34,6 @@ async function bootstrap() {
       cookie: { maxAge: +3600000 },
     }),
   )
+  app.listen(process.env.PORT || 3006)
 }
 bootstrap()

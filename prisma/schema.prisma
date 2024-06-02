@@ -12,6 +12,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Role {
+  ADMIN
+  CLIENT
+  GUESS
+  DRIVER
+}
+
 enum VehicleStatusEnum {
   AVAILABLE
   UNAVAILABLE
@@ -29,6 +36,7 @@ model User {
   lastName            String  @map("last_name")
   phone               String
   isActive            Boolean @default(true)
+  role                Role    @default(GUESS)
   userType            String  @map("user_type")
   delegate_aux_client Client?
 
@@ -44,6 +52,8 @@ model Client {
   @@map("clients")
 }
 
+/// @@allow('read', auth().role == 'ADMIN')
+/// @@allow('all', auth().role == 'ADMIN')
 model Vehicle {
   id                 Int               @id() @default(autoincrement())
   plate              String            @unique()

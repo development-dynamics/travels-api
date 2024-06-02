@@ -12,12 +12,14 @@ import { AuthServiceInterface } from '../ports/inbound/auth.service.interface'
 import { INJECT } from 'src/constants'
 import { Request } from 'express'
 import session from 'express-session'
+import { ClsService } from 'nestjs-cls'
 
 @Injectable()
 export class AuthService implements AuthServiceInterface {
   constructor(
     @Inject(INJECT.USER_SERVICE)
     private userService: UserService,
+    private clsService: ClsService,
     private jwtService: JwtService,
   ) {}
 
@@ -27,6 +29,8 @@ export class AuthService implements AuthServiceInterface {
       throw new UnauthorizedException()
     }
     const payload = { sub: user.id, email: user.email }
+
+    this.clsService.set('user', { ...user, role: user.role })
 
     return {
       access_token: await this.jwtService.signAsync(payload),

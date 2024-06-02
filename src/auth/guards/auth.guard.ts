@@ -23,11 +23,13 @@ export class AuthGuard implements CanActivate {
       context.getClass(),
     ])
 
+    const request = context.switchToHttp().getRequest()
     if (isPublic) {
+      request.headers['x-user-id'] = '1'
+      request.headers['x-user-role'] = 'USER'
       return true
     }
 
-    const request = context.switchToHttp().getRequest()
     const token = this.extractTokenFromHeader(request)
     if (!token) {
       throw new UnauthorizedException()
@@ -37,6 +39,8 @@ export class AuthGuard implements CanActivate {
         secret: process.env.JWT_SECRET,
       })
       request['user'] = payload
+      request.headers['x-user-id'] = payload.id
+      request.headers['x-user-role'] = 'USER'
     } catch {
       throw new UnauthorizedException()
     }

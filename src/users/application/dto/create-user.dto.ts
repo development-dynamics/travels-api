@@ -1,4 +1,5 @@
-import { IsBoolean, IsString, Length } from 'class-validator'
+import { Role } from '@prisma/client'
+import { IsBoolean, IsEnum, IsString, Length } from 'class-validator'
 
 export class CreateUserDto {
   @IsString()
@@ -16,6 +17,10 @@ export class CreateUserDto {
   lastName: string
   @IsString()
   phone: string
+  @IsEnum(Role)
+  role: Role
+  @IsString()
+  userType: string
   @IsBoolean()
   isActive: boolean
 }

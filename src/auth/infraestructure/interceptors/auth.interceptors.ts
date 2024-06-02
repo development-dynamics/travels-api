@@ -15,8 +15,10 @@ export class AuthInterceptor implements NestInterceptor {
     const userRole = request.headers['x-user-role']
     const userId = request.headers['x-user-id']
     if (userId) {
-      this.cls.set('auth', { id: +userId, role: userRole })
+      this.cls.set('user', { id: +userId, role: userRole })
     }
+
+    // this.cls.set('user', { id: 1, role: 'USER' })
     return next.handle()
   }
 }
