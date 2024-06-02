@@ -3,6 +3,7 @@ import { PrismaModule } from 'src/shared/infraestructure/prisma/prisma.module'
 import { ClientController } from './adapters/client.controller'
 import { ClientService } from '../application/services/client.service'
 import { ClientRepository } from './adapters/client.repository'
+import { EnhancedPrismaService } from 'src/shared/infraestructure/prisma/prisma.enhance.service'
 
 @Module({
   controllers: [ClientController],
@@ -14,6 +15,10 @@ import { ClientRepository } from './adapters/client.repository'
     {
       provide: 'ClientRepositoryInterface',
       useClass: ClientRepository,
+    },
+    {
+      provide: 'EnhancedPrismaService',
+      useClass: EnhancedPrismaService,
     },
   ],
   imports: [PrismaModule],

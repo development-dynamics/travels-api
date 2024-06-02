@@ -34,11 +34,7 @@ export class ClientController {
   @Public()
   @Post()
   async create(@Body() client: Client): Promise<Client> {
-    try{
-      return this.clientService.createClient(client)
-    } catch(error){
-      console.log(error)
-    }
+    return this.clientService.createClient(client)
   }
 
   @Patch(':id')
