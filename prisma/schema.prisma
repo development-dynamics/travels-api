@@ -32,10 +32,9 @@ model User {
 
 /// @@allow('all', true)
 model Client {
-  id                Int     @id()
+  id                Int    @id()
   address           String
-  total             Decimal
-  delegate_aux_user User    @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  delegate_aux_user User   @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("clients")
 }
