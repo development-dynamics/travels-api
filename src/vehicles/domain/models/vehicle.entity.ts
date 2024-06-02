@@ -1,4 +1,5 @@
-import { VehicleStatusEnum } from '../enums/VehicleStatusEnum'
+import { VehicleStatusEnum } from '@prisma/client'
+import { Decimal } from '@prisma/client/runtime/library'
 
 export class Vehicle {
   id: number
@@ -9,13 +10,13 @@ export class Vehicle {
 
   brand: string
 
-  weightCapacity: number
+  weightCapacity: Decimal
 
   color: string
 
   km: number
 
-  volumeCapacity: number
+  volumeCapacity: Decimal
 
   passengersCapacity: number
 

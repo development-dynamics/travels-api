@@ -5,18 +5,17 @@ import { PrismaService } from 'src/shared/infraestructure/prisma/prisma.service'
 import { ENHANCED_PRISMA } from '@zenstackhq/server/nestjs'
 import { enhance } from '@zenstackhq/runtime'
 import { ClsService } from 'nestjs-cls'
-import { PrismaClient } from '@prisma/client'
 
 @Injectable()
 export class ClientRepository implements ClientRepositoryInterface {
   constructor(
     @Inject(ENHANCED_PRISMA)
     private readonly prisma: PrismaService,
-    private readonly clsService: ClsService
+    private readonly clsService: ClsService,
   ) {}
 
   private get enhancedPrisma() {
-    return enhance(this.prisma, { user: this.clsService.get('auth') });
+    return enhance(this.prisma, { user: this.clsService.get('auth') })
   }
 
   async findAll(): Promise<Client[]> {
@@ -36,7 +35,10 @@ export class ClientRepository implements ClientRepositoryInterface {
   }
 
   async update(id: number, client: Client): Promise<Client> {
-    return await this.enhancedPrisma.client.update({ where: { id }, data: client })
+    return await this.enhancedPrisma.client.update({
+      where: { id },
+      data: client,
+    })
   }
 
   async delete(id: number): Promise<void> {

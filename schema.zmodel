@@ -32,7 +32,6 @@ model User {
 
 model Client extends User {
   address String
-  total  Decimal
   @@map("clients")
 }
 
@@ -49,6 +48,7 @@ model Vehicle {
   status             VehicleStatusEnum @default(AVAILABLE)
 
   @@map("vehicles")
+  @@allow('all', true)
 }
 
 enum VehicleStatusEnum {
