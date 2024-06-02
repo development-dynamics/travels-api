@@ -16,7 +16,7 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   async findById(id: number): Promise<User> {
-    return await this.prisma.user.findUnique({ where: { id } })
+    return await this.prisma.user.findUniqueOrThrow({ where: { id } })
   }
 
   async findByEmail(email: string): Promise<User> {

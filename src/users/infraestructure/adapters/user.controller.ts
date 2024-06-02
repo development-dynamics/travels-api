@@ -30,8 +30,7 @@ export class UserController {
   @Public()
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<User> {
-    console.log(this.userService.getUserById(+id))
-    return await this.userService.getUserById(+id)
+    return this.userService.getUserById(+id)
   }
 
   @Post()
