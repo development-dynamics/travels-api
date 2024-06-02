@@ -32,5 +32,6 @@ model User {
 
 model Client extends User {
   address String
+  total  Decimal
   @@map("clients")
 }
