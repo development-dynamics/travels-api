@@ -12,6 +12,7 @@ import { UserServiceInterface } from '../../application/ports/inbound/user.servi
 import { User } from '../../domain/models/user.entity'
 import { CreateUserDto } from 'src/users/application/dto/create-user.dto'
 import { UpdateUserDto } from 'src/users/application/dto/update-user.dto'
+import { Public } from 'src/auth/strategies/public.strategy'
 import { INJECT } from 'src/constants'
 
 @Controller('users')
@@ -21,16 +22,19 @@ export class UserController {
     private readonly userService: UserServiceInterface,
   ) {}
 
+  @Public()
   @Get()
   async findAll(): Promise<User[]> {
     return this.userService.getUsers()
   }
 
+  @Public()
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<User> {
     return this.userService.getUserById(+id)
   }
 
+  @Public()
   @Post()
   async create(@Body() user: CreateUserDto): Promise<User> {
     return this.userService.createUser(user)

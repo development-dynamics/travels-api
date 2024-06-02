@@ -13,7 +13,7 @@ RUN yarn install
 COPY . .
 
 # Build Prisma
-RUN yarn prisma generate
+RUN yarn zenstack generate
 
 # Build the app
 RUN yarn build

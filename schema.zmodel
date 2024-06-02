@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+  GUESS
+  DRIVER
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  username  String  @unique
+  email     String  @unique
+  password  String
+  dni       String
+  firstName String  @map("first_name")
+  lastName  String  @map("last_name")
+  phone     String
+  isActive  Boolean @default(true)
+  role      Role    @default(GUESS)
+  userType  String  @map("user_type")
+  @@map("users")
+
+  @@delegate(userType)
+  @@allow('all', true)
+}
+
+model Client extends User {
+  address String
+  @@map("clients")
+}
+
+model Vehicle {
+  id                 Int               @id @default(autoincrement())
+  plate              String            @unique
+  model              String
+  brand              String
+  weightCapacity     Decimal           @map("weight_capacity")
+  color              String
+  km                 Int
+  volumeCapacity     Decimal           @map("volume_capacity")
+  passengersCapacity Int               @map("passengers_capacity")
+  status             VehicleStatusEnum @default(AVAILABLE)
+
+  @@map("vehicles")
+  @@allow('read', auth().role == "ADMIN")
+
+  @@allow('all', auth().role == "ADMIN")
+}
+
+enum VehicleStatusEnum {
+  AVAILABLE
+  UNAVAILABLE
+}

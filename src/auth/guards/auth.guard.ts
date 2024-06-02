@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt'
 import { Request } from 'express'
 import { Reflector } from '@nestjs/core'
 import { IS_PUBLIC_KEY } from '../strategies/public.strategy'
+import { User } from '@prisma/client'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -22,22 +23,24 @@ export class AuthGuard implements CanActivate {
       context.getClass(),
     ])
 
+    const request = context.switchToHttp().getRequest()
     if (isPublic) {
+      request.headers['x-user-id'] = '1'
+      request.headers['x-user-role'] = 'USER'
       return true
     }
 
-    const request = context.switchToHttp().getRequest()
     const token = this.extractTokenFromHeader(request)
     if (!token) {
       throw new UnauthorizedException()
     }
     try {
-      const payload = await this.jwtService.verifyAsync(token, {
+      const payload = await this.jwtService.verifyAsync<User>(token, {
         secret: process.env.JWT_SECRET,
       })
-      // 💡 We're assigning the payload to the request object here
-      // so that we can access it in our route handlers
       request['user'] = payload
+      request.headers['x-user-id'] = payload.id
+      request.headers['x-user-role'] = 'USER'
     } catch {
       throw new UnauthorizedException()
     }

@@ -1,3 +1,5 @@
+import { Role } from '@prisma/client'
+
 export class User {
   id: number
 
@@ -14,6 +16,10 @@ export class User {
   lastName: string
 
   phone: string
+
+  userType: string
+
+  role: Role
 
   isActive: boolean
 }

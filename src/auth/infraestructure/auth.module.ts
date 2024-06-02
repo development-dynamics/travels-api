@@ -5,9 +5,13 @@ import { JwtModule } from '@nestjs/jwt'
 import { APP_GUARD } from '@nestjs/core'
 import { AuthGuard } from '../guards/auth.guard'
 import { UsersModule } from 'src/users/infraestructure/users.module'
+import { PassportModule } from '@nestjs/passport'
+import { LocalStrategy } from '../strategies/local.strategy'
+import { Session } from '../sessions'
 
 @Module({
   imports: [
+    PassportModule.register({ session: true }),
     UsersModule,
     JwtModule.register({
       global: true,
@@ -22,6 +26,8 @@ import { UsersModule } from 'src/users/infraestructure/users.module'
       useClass: AuthGuard,
     },
     AuthService,
+    LocalStrategy,
+    Session,
   ],
   exports: [AuthService],
 })
